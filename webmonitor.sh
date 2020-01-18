@@ -30,12 +30,12 @@ KEEP_RUNNING="no"				# Keep running after a change is found and an email is sent
 
 # Script - create new.html with content before script starts to prevent error
 if [ "$GREP_ON" == "yes" ]; then
-    curl $URL | grep "$SEARCH_FOR_WORDS" > ${NAME}_new.html
+    curl $URL -L | grep "$SEARCH_FOR_WORDS" > ${NAME}_new.html
 elif [ "$GREP_ON" == "no" ]; then
-    curl $URL > ${NAME}_new.html
+    curl $URL -L > ${NAME}_new.html
 else
     echo "SEARCH_FOR_WORDS ignored because GREP_ON is not specified correctly."
-    curl $URL > ${NAME}_new.html
+    curl $URL -L > ${NAME}_new.html
 fi
 
 
@@ -43,12 +43,12 @@ fi
 for (( ; ; )); do
     mv ${NAME}_new.html ${NAME}_old.html 2> /dev/null
     if [ "$GREP_ON" == "yes" ]; then
-        curl $URL | grep "$SEARCH_FOR_WORDS" > ${NAME}_new.html
+        curl $URL -L | grep "$SEARCH_FOR_WORDS" > ${NAME}_new.html
     elif [ "$GREP_ON" == "no" ]; then
-        curl $URL > ${NAME}_new.html
+        curl $URL -L > ${NAME}_new.html
     else
         echo "SEARCH_FOR_WORDS ignored because GREP_ON is not specified correctly."
-        curl $URL > ${NAME}_new.html
+        curl $URL -L > ${NAME}_new.html
     fi
     DIFF_COMPARE="$(diff ${NAME}_new.html ${NAME}_old.html)"
     if [ "0" != "${#DIFF_COMPARE}" ]; then
