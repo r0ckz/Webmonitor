@@ -11,16 +11,16 @@ TLS="yes"					# Set to 'yes' or 'no'.
 USERNAME="sender@example.com"			# Email address for SMTP.
 PASSWORD="password"				# Password for SMTP.
 
-# Settings - Message
-TO="recipient@example.com"			# Send alert to this address.
-SUBJECT="Web page monitor"			# Subject of the message.
-MESSAGE="There has been a change on $URL"	# Message body.
-
 # Settings - Web page
 NAME="example"					# Filename value, change to something unique when using multiple instances.
 URL="http://www.example.com/"			# URL of website to monitor.
 GREP_ON="yes"					# If set to 'yes', SEARCH_FOR_WORDS will be active. If set to 'no', the entire page will be compared.
 SEARCH_FOR_WORDS="Lorem ipsum dolor sit amet"	# Grep (entire) lines with these words. Receive messages about changes or when the words appear/disappear.
+
+# Settings - Message
+TO="recipient@example.com"			# Send alert to this address.
+SUBJECT="Web page monitor"			# Subject of the message.
+MESSAGE="There has been a change on $URL"	# Message body.
 
 # Settings - Script
 INTERVAL="10"					# Interval time in seconds. Eg. if set to '10', the webpage will be checked every 10 seconds.
