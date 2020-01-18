@@ -30,27 +30,27 @@ KEEP_RUNNING="no"				# Keep running after a change is found and an email is sent
 
 # Script - create new.html with content before script starts to prevent error
 if [ "$GREP_ON" == "yes" ]; then
-    curl $URL | grep $SEARCH_FOR_WORDS > $NAME_new.html
+    curl $URL | grep "$SEARCH_FOR_WORDS" > ${NAME}_new.html
 elif [ "$GREP_ON" == "no" ]; then
-    curl $URL > $NAME_new.html
+    curl $URL > ${NAME}_new.html
 else
     echo "SEARCH_FOR_WORDS ignored because GREP_ON is not specified correctly."
-    curl $URL > $NAME_new.html
+    curl $URL > ${NAME}_new.html
 fi
 
 
 # Script - start checks and mail when change is found
 for (( ; ; )); do
-    mv $NAME_new.html $NAME_old.html 2> /dev/null
+    mv ${NAME}_new.html ${NAME}_old.html 2> /dev/null
     if [ "$GREP_ON" == "yes" ]; then
-        curl $URL | grep $SEARCH_FOR_WORDS > $NAME_new.html
+        curl $URL | grep "$SEARCH_FOR_WORDS" > ${NAME}_new.html
     elif [ "$GREP_ON" == "no" ]; then
-        curl $URL > $NAME_new.html
+        curl $URL > ${NAME}_new.html
     else
         echo "SEARCH_FOR_WORDS ignored because GREP_ON is not specified correctly."
-        curl $URL > $NAME_new.html
+        curl $URL > ${NAME}_new.html
     fi
-    DIFF_COMPARE="$(diff $NAME_new.html $NAME_old.html)"
+    DIFF_COMPARE="$(diff ${NAME}_new.html ${NAME}_old.html)"
     if [ "0" != "${#DIFF_COMPARE}" ]; then
         sendEmail -f $USERNAME -s $SMTP_SERVER:$SMTP_PORT -xu $USERNAME -xp $PASSWORD -t $TO -o tls=$TLS -u $SUBJECT -m $MESSAGE
         if [ "$KEEP_RUNNING" == "no" ]; then
