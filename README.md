@@ -19,3 +19,7 @@ Run the file:<br>
 
 Or alternatively, if you want to run this in the background and have the ability to log off:<br>
 `nohup ./webmonitor.sh &`
+
+You should be able to tweak this script a bit for use with wget and compare other downloadable (text)files.
+
+If you don't want to follow the automatic redirections of an url you can remove the `-L` parameter from the curl commands. But keep in mind that this often causes problems, especially when using `http://` links that redirect to `https://` links. You can also add the `-s` parameter to the curl commands, if you wish to only show sendEmail messages. I don't prefer this, since I like to see all the activity that's going on. This all comes down to personal preference.
